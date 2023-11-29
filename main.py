@@ -1,5 +1,18 @@
 import streamlit as st
 
+class UnitConverter:
+    def __init__(self):
+        pass
+
+    def calculate_pre_unit(self, actual, base):
+        return actual / base if base != 0 else "Base value cannot be zero"
+
+    def calculate_actual_from_pre_unit(self, pre_unit, base):
+        return pre_unit * base
+
+    def calculate_base_from_pre_unit(self, pre_unit, actual):
+        return actual / pre_unit if pre_unit != 0 else "Pre-unit value cannot be zero"
+
 def calculate_power(voltage, current, resistance, conductance, energy, time):
     power = None
 
