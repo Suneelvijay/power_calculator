@@ -1,4 +1,5 @@
 import streamlit as st
+import math
 
 class UnitConverter:
     def __init__(self):
@@ -12,7 +13,7 @@ class UnitConverter:
 
     def calculate_base_from_pre_unit(self, pre_unit, actual):
         return actual / pre_unit if pre_unit != 0 else "Pre-unit value cannot be zero"
-
+        
 def calculate_power(voltage, current, resistance, conductance, energy, time):
     power = None
 
@@ -32,6 +33,15 @@ def calculate_power(voltage, current, resistance, conductance, energy, time):
         power = energy / time
 
     return power
+
+
+def calculate_three_phase_power(voltage, current, power_factor):
+    if voltage and current and power_factor:
+        # For a balanced three-phase system, the formula is sqrt(3) * V * I * PF
+        power = math.sqrt(3) * voltage * current * power_factor
+        return power
+    else:
+        return None
 
 
 def power_calculator():
@@ -94,18 +104,48 @@ def per_unit_calculator():
         st.write(f'Base value is: {base_result:.2f}')
 
 
+def three_phase_power_calculator():
+    st.title('Three-Phase Power Calculator')
+    
+    voltage = st.number_input('Enter line voltage (V):')
+    current = st.number_input('Enter line current (I):')
+    power_factor = st.number_input('Enter power factor:')
+    type = st.selectbox('Select Power Type', ('Real Power', 'Reactive Power', 'Apparent Power'))
+    if type == 'Real Power':
+        result = calculate_three_phase_power(voltage, current, power_factor)
+        if result is not None:
+            st.write(f"Calculated Three-Phase Power: {result} watts")
+        else:
+            st.write("Insufficient input to calculate three-phase power.")
+    elif type == 'Reactive Power':
+        result = calculate_three_phase_power(voltage, current, power_factor)
+        if result is not None:
+            st.write(f"Calculated Three-Phase Power: {result} watts")
+        else:
+            st.write("Insufficient input to calculate three-phase power.")
+    elif type == 'Apparent Power':
+        result = calculate_three_phase_power(voltage, current, power_factor)
+        if result is not None:
+            st.write(f"Calculated Three-Phase Power: {result} watts")
+        else:
+            st.write("Insufficient input to calculate three-phase power.")
+    
+
 def main():
     st.sidebar.title('Calculator Options')
-    calculator_option = st.sidebar.selectbox('Select Calculator', ('Power Calculator', 'Per-unit Calculator'))
+    calculator_option = st.sidebar.selectbox('Select Calculator', ('Power Calculator', 'Per-unit Calculator', 'Three-Phase Power Calculator'))
 
     if calculator_option == 'Power Calculator':
         power_calculator()
     elif calculator_option == 'Per-unit Calculator':
         per_unit_calculator()
+    elif calculator_option == 'Three-Phase Power Calculator':
+        three_phase_power_calculator()
 
 
 if __name__ == "__main__":
     main()
+    
 st.markdown(
         '<div style="text-align:center; margin-top: 42px">'
         '<a href = "https://github.com/Suneelvijay/" style = "text-decoration: none;" ><p style="font-size: 10px;">Suneelvijay Projects © 2023 .</a></p>'
