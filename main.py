@@ -21,7 +21,7 @@ def calculate_power(voltage, current, resistance, conductance, energy, time):
     return power
 
 
-def main():
+def power_calculator():
     st.title('Power Calculator')
 
     selected_param_1 = st.selectbox('Select first parameter', ('V', 'I', 'R', 'G', 'E'))
@@ -55,5 +55,48 @@ def main():
             st.write("Insufficient input to calculate power.")
 
 
+def per_unit_calculator():
+    st.title('Per-unit Calculator')
+    # Add functionality for per-unit calculator
+    converter = UnitConverter()
+
+    conversion_type = st.selectbox('Select Conversion Type', ('Actual/Base to Pre-unit', 'Pre-unit to Actual', 'Pre-unit to Base'))
+
+    if conversion_type == 'Actual/Base to Pre-unit':
+        actual = st.number_input('Enter Actual Quantity:', value=1)
+        base = st.number_input('Enter Base Quantity:', value=1)
+        pre_unit_result = converter.calculate_pre_unit(actual, base)
+        st.write(f'Pre-unit value is: {pre_unit_result}')
+
+    elif conversion_type == 'Pre-unit to Actual':
+        pre_unit = st.number_input('Enter Pre-unit Quantity:')
+        base = st.number_input('Enter Base Quantity:', value=1)
+        actual_result = converter.calculate_actual_from_pre_unit(pre_unit, base)
+        st.write(f'Actual value is: {actual_result:.2f}')
+
+    elif conversion_type == 'Pre-unit to Base':
+        pre_unit = st.number_input('Enter Pre-unit Quantity:')
+        actual = st.number_input('Enter Actual Quantity:', value=1)
+        base_result = converter.calculate_base_from_pre_unit(pre_unit, actual)
+        st.write(f'Base value is: {base_result:.2f}')
+
+
+def main():
+    st.sidebar.title('Calculator Options')
+    calculator_option = st.sidebar.selectbox('Select Calculator', ('Power Calculator', 'Per-unit Calculator'))
+
+    if calculator_option == 'Power Calculator':
+        power_calculator()
+    elif calculator_option == 'Per-unit Calculator':
+        per_unit_calculator()
+
+
 if __name__ == "__main__":
     main()
+st.markdown(
+        '<div style="text-align:center; margin-top: 42px">'
+        '<a href = "https://github.com/Suneelvijay/" style = "text-decoration: none;" ><p style="font-size: 10px;">Suneelvijay Projects © 2023 .</a></p>'
+        '<p style="font-size: 10px;">Open Source rights reserved.</p>'
+        '</div>',
+        unsafe_allow_html=True
+    )
