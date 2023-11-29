@@ -44,7 +44,7 @@ def calculate_rp(voltage, current, power_factor):
         
 def calculate_Rp(voltage, current, power_factor):
     if voltage and current and power_factor:
-        power = voltage * current * sqrt(1 - power_factor**2)
+        power = voltage * current * math.sqrt(1 - power_factor**2)
         return power
     else:
         return None
