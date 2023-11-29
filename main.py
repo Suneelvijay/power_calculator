@@ -123,7 +123,13 @@ def three_phase_power_calculator():
     current = st.number_input('Enter line current (I):')
     power_factor = st.number_input('Enter power factor:')
     type = st.selectbox('Select Power Type', ('Three Phase Power','Real Power', 'Reactive Power', 'Apparent Power'))
-    if type == 'Real Power':
+    if type == 'Three Phase Power':
+        result = math.sqrt(3) * calculate_rp(voltage, current, power_factor)
+        if result is not None:
+            st.write(f"Calculated Three Phase Power: {result: .1f} watts")
+        else:
+            st.write("Insufficient input to calculate three-phase power.")
+    elif type == 'Real Power':
         result = calculate_rp(voltage, current, power_factor)
         if result is not None:
             st.write(f"Calculated Real Power: {result: .1f} watts")
@@ -141,12 +147,7 @@ def three_phase_power_calculator():
             st.write(f"Calculated Apparent Power: {result: .1f} watts")
         else:
             st.write("Insufficient input to calculate three-phase power.")
-    elif type == 'Three Phase Power':
-        result = math.sqrt(3) * calculate_rp(voltage, current, power_factor)
-        if result is not None:
-            st.write(f"Calculated Three Phase Power: {result: .1f} watts")
-        else:
-            st.write("Insufficient input to calculate three-phase power.")
+    
     
 
 def main():
