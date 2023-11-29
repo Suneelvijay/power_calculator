@@ -134,19 +134,19 @@ def three_phase_power_calculator():
         if result is not None:
             st.write(f"Calculated Real Power: {result: .1f} watts")
         else:
-            st.write("Insufficient input to calculate three-phase power.")
+            st.write("Insufficient input to calculate real power.")
     elif type == 'Reactive Power':
         result = calculate_Rp(voltage, current, power_factor)
         if result is not None:
             st.write(f"Calculated Reactive Power: {result: .1f} watts")
         else:
-            st.write("Insufficient input to calculate three-phase power.")
+            st.write("Insufficient input to calculate reactive power.")
     elif type == 'Apparent Power':
         result = calculate_ap(voltage, current, power_factor)
         if result is not None:
             st.write(f"Calculated Apparent Power: {result: .1f} watts")
         else:
-            st.write("Insufficient input to calculate three-phase power.")
+            st.write("Insufficient input to calculate apparent power.")
     
     
 
