@@ -35,14 +35,26 @@ def calculate_power(voltage, current, resistance, conductance, energy, time):
     return power
 
 
-def calculate_three_phase_power(voltage, current, power_factor):
+def calculate_rp(voltage, current, power_factor):
     if voltage and current and power_factor:
-        # For a balanced three-phase system, the formula is sqrt(3) * V * I * PF
-        power = math.sqrt(3) * voltage * current * power_factor
+        power = voltage * current * power_factor
         return power
     else:
         return None
-
+        
+def calculate_Rp(voltage, current, power_factor):
+    if voltage and current and power_factor:
+        power = voltage * current * sqrt(1 - power_factor**2)
+        return power
+    else:
+        return None
+        
+def calculate_ap(voltage, current, power_factor):
+    if voltage and current and power_factor:
+        power = voltage * current
+        return power
+    else:
+        return None
 
 def power_calculator():
     st.title('Power Calculator')
@@ -112,19 +124,19 @@ def three_phase_power_calculator():
     power_factor = st.number_input('Enter power factor:')
     type = st.selectbox('Select Power Type', ('Real Power', 'Reactive Power', 'Apparent Power'))
     if type == 'Real Power':
-        result = calculate_three_phase_power(voltage, current, power_factor)
+        result = calculate_rp(voltage, current, power_factor)
         if result is not None:
             st.write(f"Calculated Three-Phase Power: {result} watts")
         else:
             st.write("Insufficient input to calculate three-phase power.")
     elif type == 'Reactive Power':
-        result = calculate_three_phase_power(voltage, current, power_factor)
+        result = calculate_Rp(voltage, current, power_factor)
         if result is not None:
             st.write(f"Calculated Three-Phase Power: {result} watts")
         else:
             st.write("Insufficient input to calculate three-phase power.")
     elif type == 'Apparent Power':
-        result = calculate_three_phase_power(voltage, current, power_factor)
+        result = calculate_ap(voltage, current, power_factor)
         if result is not None:
             st.write(f"Calculated Three-Phase Power: {result} watts")
         else:
