@@ -28,17 +28,23 @@ def main():
     selected_param_2 = st.selectbox('Select second parameter', ('I', 'R', 'V', 'G', 't'))
 
     input_values = {
-        'V': st.number_input('Enter voltage:'),
-        'I': st.number_input('Enter current:'),
-        'R': st.number_input('Enter resistance:'),
-        'G': st.number_input('Enter conductance:'),
-        'E': st.number_input('Enter energy:'),
-        't': st.number_input('Enter time:')
+        'V': None,
+        'I': None,
+        'R': None,
+        'G': None,
+        'E': None,
+        't': None
     }
 
+    if selected_param_1 in input_values:
+        input_values[selected_param_1] = st.number_input('Enter value for ' + selected_param_1 + ':')
+
+    if selected_param_2 in input_values:
+        input_values[selected_param_2] = st.number_input('Enter value for ' + selected_param_2 + ':')
+
     if st.button('Calculate Power'):
-        result = calculate_power(input_values.get(selected_param_1),
-                                 input_values.get(selected_param_2),
+        result = calculate_power(input_values.get('V'),
+                                 input_values.get('I'),
                                  input_values.get('R'),
                                  input_values.get('G'),
                                  input_values.get('E'),
